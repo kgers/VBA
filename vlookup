@@ -1,0 +1,18 @@
+StartVLOOK:
+Do While ActiveCell <> Range("A1")
+FILE_name = ActiveCell.Value
+
+If ActiveCell = "" Then
+ActiveCell.EntireRow.Delete
+ActiveCell.Offset(-1, 0).Select
+GoTo StartVLOOK:
+End If
+
+FILE_loc = Application.WorksheetFunction.VLookup("*" & FILE_name & "*", Sheet1.Range("A:C"), 3, False)
+ActiveCell.Offset(0, 1).Value = FILE_loc
+
+If ActiveCell.Offset(0, 1).Value = "" Then
+ActiveCell.EntireRow.Delete
+'Else
+'MsgBox "File Location is " & FILE_loc
+End If
